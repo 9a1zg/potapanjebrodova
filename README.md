@@ -15,6 +15,14 @@ npm start            # ili: python3 -m http.server 8080 --bind 127.0.0.1
 npm test             # modem kroz simulirani kanal + cijela igra preko kanala s gubicima
 ```
 
+### Windows bez instalacije
+
+`scripts/build.sh` (treba Go) gradi `dist/potapanje-brodova.exe`, jednu datoteku od ~5 MB u
+koju je ugrađena cijela igra. Igrač je samo pokrene dvoklikom: otvori se konzolni prozor i
+zadani preglednik (Edge/Chrome) na `http://127.0.0.1:47811/`; zatvaranjem prozora igra staje.
+Exe nije potpisan, pa SmartScreen pri prvom pokretanju traži „Više informacija → Ipak pokreni”.
+Port je stalan da postavke ostanu zapamćene; ako je zauzet, uzima se slobodan.
+
 Mikrofon u pregledniku radi samo u sigurnom kontekstu (`https://` ili `http://localhost`), zato
 svaki igrač pokreće igru lokalno na svom računalu. Mreža nije potrebna, sve ide preko zvuka.
 
