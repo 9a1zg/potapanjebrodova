@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Potapanje brodova · PSK</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Potapanje brodova <small>preko PSK</small></h1>
+      <div id="status" class="status">Pokreni modem, postavi brodove i klikni „Spreman”.</div>
+      <div class="indicators">
+        <span id="ind-tx" class="lamp">TX</span>
+        <span id="ind-dcd" class="lamp">DCD</span>
+        <span class="quality" title="Kvaliteta faze prijema"><span id="quality-bar"></span></span>
+        <span id="rx-freq" class="mono">— Hz</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="boards">
+        <div class="board-wrap">
+          <h2>Moja flota <span id="my-afloat" class="sub"></span></h2>
+          <div id="my-board" class="board"></div>
+          <div id="placement" class="placement">
+            <div id="ship-list" class="ship-list"></div>
+            <div class="row">
+              <button id="btn-rotate" title="Tipka R ili desni klik">Okreni (R)</button>
+              <button id="btn-random">Nasumično</button>
+              <button id="btn-clear">Očisti</button>
+            </div>
+          </div>
+          <div class="row">
+            <button id="btn-ready" class="primary">Spreman</button>
+            <button id="btn-retry" title="Ponovno pošalji zadnju poruku koja čeka odgovor">Ponovi</button>
+            <button id="btn-new">Nova igra</button>
+          </div>
+        </div>
+        <div class="board-wrap">
+          <h2>Protivnik <span id="opp-label" class="sub"></span></h2>
+          <div id="opp-board" class="board target"></div>
+          <div id="score" class="sub"></div>
+        </div>
+      </section>
+
+      <section class="side">
+        <div class="panel">
+          <h3>Igrači</h3>
+          <div class="grid2">
+            <label>Moj znak <input data-setting="me" maxlength="10" placeholder="npr. 9A1ABC" /></label>
+            <label>Protivnik <input data-setting="opponent" maxlength="10" placeholder="prazno = prvi koji se javi" /></label>
+          </div>
+          <div class="row">
+            <button id="btn-cq">CQ — tražim igru</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Modem</h3>
+          <div class="grid2">
+            <label>Kanal
+              <select data-setting="channel">
+                <option value="audio">Zvučna kartica (radio / zvučnik)</option>
+                <option value="virtual">Virtualni (između tabova)</option>
+              </select>
+            </label>
+            <label>Brzina
+              <select data-setting="baud">
+                <option value="31.25">PSK31 (31,25 Bd)</option>
+                <option value="62.5">PSK63 (62,5 Bd)</option>
+                <option value="125">PSK125 (125 Bd)</option>
+              </select>
+            </label>
+            <label class="audio-only">Ulaz <select id="sel-input" data-setting="inputId"><option value="">zadano</option></select></label>
+            <label class="audio-only">Izlaz <select id="sel-output" data-setting="outputId"><option value="">zadano</option></select></label>
+            <label>Frekvencija (Hz) <input data-setting="freq" type="number" min="300" max="3000" step="1" /></label>
+            <label>Razina TX <input data-setting="level" type="range" min="0.02" max="1" step="0.01" /></label>
+            <label title="Produžena preambula da VOX uključi predajnik prije podataka">VOX predtakt (ms) <input data-setting="voxLeadMs" type="number" min="0" max="3000" step="50" /></label>
+            <label title="Pauza nakon tuđeg odašiljanja prije našeg, da protivnikov VOX otpusti">Pauza prije odgovora (ms) <input data-setting="turnDelayMs" type="number" min="0" max="5000" step="50" /></label>
+            <label class="check"><input data-setting="afc" type="checkbox" /> AFC</label>
+            <label class="virtual-only">Šum <input data-setting="noise" type="range" min="0" max="0.5" step="0.01" /></label>
+          </div>
+          <div class="row">
+            <button id="btn-start" class="primary">Pokreni modem</button>
+            <span id="modem-info" class="sub"></span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Vodopad <span class="sub">klik = frekvencija</span></h3>
+          <div class="waterfall">
+            <canvas id="wf" width="600" height="140"></canvas>
+            <canvas id="wf-overlay" width="600" height="140"></canvas>
+          </div>
+        </div>
+
+        <div class="panel log-panel">
+          <h3>Dnevnik</h3>
+          <div id="log" class="log mono"></div>
+          <form id="chat" class="row">
+            <input id="chat-text" maxlength="70" placeholder="Poruka protivniku…" autocomplete="off" />
+            <button>Pošalji</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>

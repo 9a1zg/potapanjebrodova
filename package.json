@@ -1,0 +1,10 @@
+{
+  "name": "potapanjebrodova",
+  "private": true,
+  "type": "module",
+  "description": "Potapanje brodova preko PSK (audio), web GUI s obje strane",
+  "scripts": {
+    "start": "python3 -m http.server 8080 --bind 127.0.0.1",
+    "test": "node test/modem.test.mjs && node test/session.test.mjs"
+  }
+}
